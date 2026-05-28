@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Gerenciamento de Usuarios</h1>
+                <p>Consulte e edite os alunos cadastrados.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="/admin/adicionar-usuario">Adicionar usuario</a>
+                <a href="/admin" class="btn-secondary">Voltar</a>
+            </div>
+        </header>
+
+        <section class="search-panel">
+            <div class="search-tools">
+                <div class="search-field">
+                    <label for="buscar-usuarios">Pesquisar usuario</label>
+                    <input
+                        id="buscar-usuarios"
+                        type="search"
+                        placeholder="Digite nome, email ou telefone"
+                        data-search-input="usuarios"
+                    >
+                </div>
+
+                <details class="sort-menu">
+                    <summary>Ordenar</summary>
+                    <div class="sort-menu-options">
+                        <button type="button" data-sort-target="usuarios" data-sort-option="latest">Adicionados por ultimo</button>
+                        <button type="button" data-sort-target="usuarios" data-sort-option="alpha">Ordem alfabetica</button>
+                        <button type="button" data-sort-target="usuarios" data-sort-option="oldest">Primeiros adicionados</button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Nascimento</th>
+                        <th>Cadastro</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody data-search-target="usuarios">
+                    {% for usuario in usuarios %}
+                        <tr data-search-item data-sort-id="{{ usuario[0] }}" data-sort-name="{{ usuario[1] }}">
+                            <td>{{ usuario[0] }}</td>
+                            <td>{{ usuario[1] }}</td>
+                            <td>{{ usuario[2] }}</td>
+                            <td>{{ usuario[3] }}</td>
+                            <td>{{ usuario[4].strftime('%d/%m/%Y') }}</td>
+                            <td>{{ usuario[5].strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="/admin/editar-usuario/{{ usuario[0] }}">Editar</a>
+                                    <a href="/admin/excluir-usuario/{{ usuario[0] }}" class="btn-danger">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <strong>Nenhum usuario cadastrado.</strong>
+                                    Use o botão Adicionar usuario para começar.
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

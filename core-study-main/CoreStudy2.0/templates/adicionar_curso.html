@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Curso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="form-page">
+
+    <main class="form-card">
+        <h1>Adicionar Curso</h1>
+        <p>Cadastre um novo curso e vincule-o a uma categoria.</p>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="titulo">Titulo do curso</label>
+                <input
+                    id="titulo"
+                    type="text"
+                    name="titulo"
+                    placeholder="Digite o titulo do curso"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descricao do curso</label>
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    placeholder="Digite a descricao do curso"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="carga_hora">Carga horaria</label>
+                <input
+                    id="carga_hora"
+                    type="number"
+                    name="carga_hora"
+                    placeholder="Digite a carga horaria"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="categoria_id">Categoria</label>
+                <select id="categoria_id" name="categoria_id" required>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="button-row">
+                <button type="submit">Cadastrar</button>
+                <a href="/admin/cursos" class="btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

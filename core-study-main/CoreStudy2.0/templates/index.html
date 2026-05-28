@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Core Study</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page home-page">
+
+    <main class="auth-card home-card">
+        <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="logo">
+
+        <h1>CORE STUDY</h1>
+        <p>Organize cursos, aulas e materiais em uma plataforma simples para estudar melhor.</p>
+
+        <div class="button-row">
+            <a href="/login">Login</a>
+            <a href="/cadastro" class="btn-secondary">Cadastre-se</a>
+        </div>
+    </main>
+
+    <aside class="home-campus-recommendation">
+        <p>Se você pretende estudar presencialmente, recomendamos:</p>
+        <a href="https://www.unifecaf.com.br/" target="_blank" rel="noopener noreferrer">
+            <img
+                src="{{ url_for('static', filename='img/unifecaf_logo.png') }}"
+                alt="UniFECAF"
+            >
+        </a>
+    </aside>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Aula</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="student-header">
+        <div class="student-info">
+            <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="student-logo">
+
+            <div class="student-title">
+                <h1>{{ aula[0] }}</h1>
+                <p>{{ nome_usuario }}</p>
+            </div>
+        </div>
+
+        <a href="/logout" class="logout-btn">Fazer Logout</a>
+    </header>
+
+    <main class="page-shell">
+        <section class="item-card">
+            <h2>Aula</h2>
+            <p>Acesse o conteudo principal da aula.</p>
+
+            <div class="center-actions">
+                <a href="{{ aula[1] }}" target="_blank">Assistir Aula</a>
+            </div>
+        </section>
+
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Materiais da Aula</h1>
+                <p>Arquivos e materiais complementares disponiveis.</p>
+            </div>
+        </header>
+
+        {% if materiais %}
+            <section class="card-grid">
+                {% for material in materiais %}
+                    <article class="item-card">
+                        <h2>{{ material[0] }}</h2>
+                        <p><strong>Tipo:</strong> {{ material[1] }}</p>
+                        <p><strong>Tamanho:</strong> {{ material[2] }}</p>
+                    </article>
+                {% endfor %}
+            </section>
+        {% else %}
+            <section class="item-card">
+                <p>Nenhum material disponivel.</p>
+            </section>
+        {% endif %}
+
+        <div class="center-actions">
+            <a href="javascript:history.back()" class="btn-secondary">Voltar</a>
+        </div>
+    </main>
+
+</body>
+</html>

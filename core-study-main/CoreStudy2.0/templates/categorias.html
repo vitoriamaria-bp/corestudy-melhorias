@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Categorias</h1>
+                <p>Gerencie as categorias usadas nos cursos.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="/admin/adicionar-categoria">Adicionar categoria</a>
+                <a href="/admin" class="btn-secondary">Voltar</a>
+            </div>
+        </header>
+
+        <section class="search-panel">
+            <div class="search-tools">
+                <div class="search-field">
+                    <label for="buscar-categorias">Pesquisar categoria</label>
+                    <input
+                        id="buscar-categorias"
+                        type="search"
+                        placeholder="Digite o nome da categoria"
+                        data-search-input="categorias"
+                    >
+                </div>
+
+                <details class="sort-menu">
+                    <summary>Ordenar</summary>
+                    <div class="sort-menu-options">
+                        <button type="button" data-sort-target="categorias" data-sort-option="latest">Adicionadas por ultimo</button>
+                        <button type="button" data-sort-target="categorias" data-sort-option="alpha">Ordem alfabetica</button>
+                        <button type="button" data-sort-target="categorias" data-sort-option="oldest">Primeiras adicionadas</button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="card-grid" data-search-target="categorias">
+            {% for categoria in categorias %}
+                <article class="item-card" data-search-item data-sort-id="{{ categoria[0] }}" data-sort-name="{{ categoria[1] }}">
+                    <h2>{{ categoria[1] }}</h2>
+
+                    <div class="item-card-actions">
+                        <a href="/admin/editar-categoria/{{ categoria[0] }}">Editar</a>
+                        <a href="/admin/excluir-categoria/{{ categoria[0] }}" class="btn-danger">Excluir</a>
+                    </div>
+                </article>
+            {% else %}
+                <div class="empty-state">
+                    <strong>Nenhuma categoria cadastrada.</strong>
+                    Use o botão Adicionar categoria para começar.
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

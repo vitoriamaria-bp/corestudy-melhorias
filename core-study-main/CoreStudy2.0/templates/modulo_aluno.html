@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Modulo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="student-header">
+        <div class="student-info">
+            <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="student-logo">
+
+            <div class="student-title">
+                <h1>{{ modulo[0] }}</h1>
+                <p>{{ nome_usuario }}</p>
+            </div>
+        </div>
+
+        <a href="/logout" class="logout-btn">Fazer Logout</a>
+    </header>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Aulas</h1>
+                <p>Selecione uma aula para estudar.</p>
+            </div>
+        </header>
+
+        <section class="card-grid">
+            {% for aula in aulas %}
+                <article class="item-card">
+                    <h2>{{ aula[1] }}</h2>
+
+                    <div class="item-card-actions">
+                        <a href="/trilha/aula/{{ aula[0] }}">Ver aula</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+
+        <div class="center-actions">
+            <a href="/trilha" class="btn-secondary">Voltar para trilha</a>
+        </div>
+    </main>
+
+</body>
+</html>

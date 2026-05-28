@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Modulos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Gerenciamento de Modulos</h1>
+                <p>Organize os modulos vinculados aos cursos.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="/admin/adicionar-modulo">Adicionar modulo</a>
+                <a href="/admin" class="btn-secondary">Voltar</a>
+            </div>
+        </header>
+
+        <section class="search-panel">
+            <div class="search-tools">
+                <div class="search-field">
+                    <label for="buscar-modulos">Pesquisar modulo</label>
+                    <input
+                        id="buscar-modulos"
+                        type="search"
+                        placeholder="Digite titulo ou curso"
+                        data-search-input="modulos"
+                    >
+                </div>
+
+                <details class="sort-menu">
+                    <summary>Ordenar</summary>
+                    <div class="sort-menu-options">
+                        <button type="button" data-sort-target="modulos" data-sort-option="latest">Adicionados por ultimo</button>
+                        <button type="button" data-sort-target="modulos" data-sort-option="alpha">Ordem alfabetica</button>
+                        <button type="button" data-sort-target="modulos" data-sort-option="oldest">Primeiros adicionados</button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Curso</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody data-search-target="modulos">
+                    {% for modulo in modulos %}
+                        <tr data-search-item data-sort-id="{{ modulo[0] }}" data-sort-name="{{ modulo[1] }}">
+                            <td>{{ modulo[0] }}</td>
+                            <td>{{ modulo[1] }}</td>
+                            <td>{{ modulo[2] }}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="/admin/editar-modulo/{{ modulo[0] }}">Editar</a>
+                                    <a href="/admin/excluir-modulo/{{ modulo[0] }}" class="btn-danger">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">
+                                <div class="empty-state">
+                                    <strong>Nenhum modulo cadastrado.</strong>
+                                    Use o botão Adicionar modulo para começar.
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

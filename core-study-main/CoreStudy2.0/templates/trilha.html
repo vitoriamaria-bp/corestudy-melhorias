@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Trilha de Estudos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="student-header">
+        <div class="student-info">
+            <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="student-logo">
+
+            <div class="student-title">
+                <h1>Trilha de Estudos</h1>
+                <p>{{ nome_usuario }}</p>
+            </div>
+        </div>
+
+        <a href="/logout" class="logout-btn">Fazer Logout</a>
+    </header>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Cursos Disponiveis</h1>
+                <p>Escolha um curso para estudar. Os cursos estao separados por categoria e em ordem alfabetica.</p>
+            </div>
+        </header>
+
+        {% for grupo in cursos_por_categoria %}
+            <section class="category-section">
+                <header class="category-header">
+                    <h2>{{ grupo.nome_categoria }}</h2>
+                    <span>{{ grupo.cursos | length }} curso{% if grupo.cursos | length != 1 %}s{% endif %}</span>
+                </header>
+
+                <div class="card-grid">
+                    {% for curso in grupo.cursos %}
+                        <article class="item-card">
+                            <h2>{{ curso[1] }}</h2>
+                            <p>{{ curso[2] }}</p>
+                            <p><strong>Carga horaria:</strong> {{ curso[3] }} horas</p>
+
+                            <div class="item-card-actions">
+                                <a href="/trilha/curso/{{ curso[0] }}">Acessar curso</a>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+
+        <div class="center-actions">
+            <a href="/aluno" class="btn-secondary">Voltar</a>
+        </div>
+    </main>
+
+</body>
+</html>
