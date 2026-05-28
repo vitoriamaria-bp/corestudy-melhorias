@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                {% if admin %}
+                    <h1>Gerenciar Cursos</h1>
+                    <p>Consulte, cadastre, edite e exclua os cursos da plataforma.</p>
+                {% else %}
+                    <h1>Cursos Disponiveis</h1>
+                    <p>Veja os cursos cadastrados na plataforma.</p>
+                {% endif %}
+            </div>
+
+            <div class="button-row">
+                {% if admin %}
+                    <a href="/admin/adicionar-curso">Adicionar curso</a>
+                    <a href="/admin" class="btn-secondary">Voltar</a>
+                {% else %}
+                    <a href="/" class="btn-secondary">Voltar</a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% if admin %}
+            <section class="search-panel">
+                <div class="search-tools">
+                    <div class="search-field">
+                        <label for="buscar-cursos">Pesquisar curso</label>
+                        <input
+                            id="buscar-cursos"
+                            type="search"
+                            placeholder="Digite titulo, descricao ou categoria"
+                            data-search-input="cursos"
+                        >
+                    </div>
+
+                    <details class="sort-menu">
+                        <summary>Ordenar</summary>
+                        <div class="sort-menu-options">
+                            <button type="button" data-sort-target="cursos" data-sort-option="latest">Adicionados por ultimo</button>
+                            <button type="button" data-sort-target="cursos" data-sort-option="alpha">Ordem alfabetica</button>
+                            <button type="button" data-sort-target="cursos" data-sort-option="oldest">Primeiros adicionados</button>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titulo</th>
+                            <th>Descricao</th>
+                            <th>Carga horaria</th>
+                            <th>Categoria</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody data-search-target="cursos">
+                        {% for curso in cursos %}
+                            <tr data-search-item data-sort-id="{{ curso[0] }}" data-sort-name="{{ curso[1] }}">
+                                <td>{{ curso[0] }}</td>
+                                <td>{{ curso[1] }}</td>
+                                <td>{{ curso[2] }}</td>
+                                <td>{{ curso[3] }} horas</td>
+                                <td>{{ curso[4] or "Sem categoria" }}</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <a href="/admin/editar-curso/{{ curso[0] }}">Editar</a>
+                                        <a href="/admin/excluir-curso/{{ curso[0] }}" class="btn-danger">Excluir</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">
+                                    <div class="empty-state">
+                                        <strong>Nenhum curso cadastrado.</strong>
+                                        Use o botão Adicionar curso para começar.
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        {% else %}
+            <section class="card-grid">
+                {% for curso in cursos %}
+                    <article class="item-card">
+                        <h2>{{ curso[1] }}</h2>
+                        <p>{{ curso[2] }}</p>
+                        <p><strong>Carga horaria:</strong> {{ curso[3] }} horas</p>
+                    </article>
+                {% else %}
+                    <div class="empty-state">
+                        <strong>Nenhum curso disponivel.</strong>
+                        Volte mais tarde para conferir novos conteúdos.
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

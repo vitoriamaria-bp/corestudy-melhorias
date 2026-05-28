@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Modulo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="message-page">
+
+    <main class="confirmacao-box">
+        <h1>Excluir Modulo</h1>
+        <p>
+            Deseja realmente excluir o modulo
+            <strong>{{ modulo[1] }}</strong>?
+        </p>
+
+        <form method="POST">
+            <div class="button-row">
+                <button type="submit" class="btn-excluir">Sim, excluir</button>
+                <a href="/admin/modulos" class="btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

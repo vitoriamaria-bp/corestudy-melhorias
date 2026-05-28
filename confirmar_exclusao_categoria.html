@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Core Study</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page home-page">
+
+    <main class="auth-card home-card">
+        <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="logo">
+
+        <h1>Cadastro</h1>
+        <p>Crie sua conta para acessar trilhas, aulas e materiais de estudo.</p>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" name="nome" placeholder="Digite seu nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input id="telefone" type="text" name="telefone" placeholder="Digite seu telefone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data_nasc">Data de nascimento</label>
+                <input id="data_nasc" type="date" name="data_nasc" required>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+            </div>
+
+            <div class="button-row">
+                <button type="submit">Cadastrar</button>
+                <a href="/" class="btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Usuário</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='img/logo_core_study.png') }}" alt="Logo Core Study" class="logo">
+
+    <div>
+        <h1>Excluir Usuário</h1>
+
+        <p>Deseja realmente excluir o usuário <strong>{{ usuario[1] }}</strong>?</p>
+
+        <form method="POST">
+            <button type="submit">Sim, excluir</button>
+        </form>
+
+        <br>
+
+        <a href="/admin/usuarios">Cancelar</a>
+    </div>
+
+</body>
+</html>

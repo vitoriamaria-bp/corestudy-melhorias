@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Aulas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Gerenciamento de Aulas</h1>
+                <p>Cadastre e mantenha as aulas de cada modulo.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="/admin/adicionar-aula">Adicionar aula</a>
+                <a href="/admin" class="btn-secondary">Voltar</a>
+            </div>
+        </header>
+
+        <section class="search-panel">
+            <div class="search-tools">
+                <div class="search-field">
+                    <label for="buscar-aulas">Pesquisar aula</label>
+                    <input
+                        id="buscar-aulas"
+                        type="search"
+                        placeholder="Digite aula, modulo, curso ou URL"
+                        data-search-input="aulas"
+                    >
+                </div>
+
+                <details class="sort-menu">
+                    <summary>Ordenar</summary>
+                    <div class="sort-menu-options">
+                        <button type="button" data-sort-target="aulas" data-sort-option="latest">Adicionadas por ultimo</button>
+                        <button type="button" data-sort-target="aulas" data-sort-option="alpha">Ordem alfabetica</button>
+                        <button type="button" data-sort-target="aulas" data-sort-option="oldest">Primeiras adicionadas</button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Aula</th>
+                        <th>URL/Arquivo</th>
+                        <th>Modulo</th>
+                        <th>Curso</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody data-search-target="aulas">
+                    {% for aula in aulas %}
+                        <tr data-search-item data-sort-id="{{ aula[0] }}" data-sort-name="{{ aula[1] }}">
+                            <td>{{ aula[0] }}</td>
+                            <td>{{ aula[1] }}</td>
+                            <td>{{ aula[2] }}</td>
+                            <td>{{ aula[3] }}</td>
+                            <td>{{ aula[4] }}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="/admin/editar-aula/{{ aula[0] }}">Editar</a>
+                                    <a href="/admin/excluir-aula/{{ aula[0] }}" class="btn-danger">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <strong>Nenhuma aula cadastrada.</strong>
+                                    Use o botão Adicionar aula para começar.
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

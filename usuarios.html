@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Materiais</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-shell">
+        <header class="page-header">
+            <div class="page-header-text">
+                <h1>Gerenciamento de Materiais</h1>
+                <p>Controle arquivos e materiais complementares das aulas.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="/admin/adicionar-material">Adicionar material</a>
+                <a href="/admin" class="btn-secondary">Voltar</a>
+            </div>
+        </header>
+
+        <section class="search-panel">
+            <div class="search-tools">
+                <div class="search-field">
+                    <label for="buscar-materiais">Pesquisar material</label>
+                    <input
+                        id="buscar-materiais"
+                        type="search"
+                        placeholder="Digite material, tipo, tamanho ou aula"
+                        data-search-input="materiais"
+                    >
+                </div>
+
+                <details class="sort-menu">
+                    <summary>Ordenar</summary>
+                    <div class="sort-menu-options">
+                        <button type="button" data-sort-target="materiais" data-sort-option="latest">Adicionados por ultimo</button>
+                        <button type="button" data-sort-target="materiais" data-sort-option="alpha">Ordem alfabetica</button>
+                        <button type="button" data-sort-target="materiais" data-sort-option="oldest">Primeiros adicionados</button>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Material</th>
+                        <th>Tipo</th>
+                        <th>Tamanho</th>
+                        <th>Aula</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody data-search-target="materiais">
+                    {% for material in materiais %}
+                        <tr data-search-item data-sort-id="{{ material[0] }}" data-sort-name="{{ material[1] }}">
+                            <td>{{ material[0] }}</td>
+                            <td>{{ material[1] }}</td>
+                            <td>{{ material[2] }}</td>
+                            <td>{{ material[3] }}</td>
+                            <td>{{ material[4] }}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="/admin/editar-material/{{ material[0] }}">Editar</a>
+                                    <a href="/admin/excluir-material/{{ material[0] }}" class="btn-danger">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <strong>Nenhum material cadastrado.</strong>
+                                    Use o botão Adicionar material para começar.
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>
